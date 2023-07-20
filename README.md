@@ -34,6 +34,13 @@ compose(
 ) // ok
 ```
 
+## Limitations
+
+1. Only functions in the form of `<T, R>(argument: T) => R` are supported. This excludes:
+    1. multi-argument functions (use tuple arguments instead i.e. `([a, b]: [number, string]) => func(a, b)`)
+    1. constants (use `() => constant` instead), 
+    1. iterators/generators.
+
 ## Usage
 
 ### Simple
@@ -47,7 +54,7 @@ const double = (a: number) => a * 2
 compose(
   increment, // number => number
   double, // number => number
-  String // any    => string
+  String // any => string
 )(5) === String(double(increment(5)))
 ```
 
