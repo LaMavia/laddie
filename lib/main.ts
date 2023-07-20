@@ -1,9 +1,18 @@
 import { PipeArgs } from './types/helpers/PipeArgs'
-import { AnyFn, AnyPromise, FirstArg, LastReturnType } from './types/helpers/func'
+import {
+  AnyFn,
+  AnyPromise,
+  FirstArg,
+  LastReturnType
+} from './types/helpers/func'
 
 export const compose: <Fs extends AnyFn[]>(
   ...fs: PipeArgs<Fs>
-) => (a: FirstArg<Fs>) => AnyPromise<Fs> extends true ? Promise<LastReturnType<Fs>> : LastReturnType<Fs> =
+) => (
+  a: FirstArg<Fs>
+) => AnyPromise<Fs> extends true
+  ? Promise<LastReturnType<Fs>>
+  : LastReturnType<Fs> =
   (...fs) =>
   a0 =>
     fs.reduce((a, f) => (a instanceof Promise ? a.then(f) : f(a)), a0 as any)

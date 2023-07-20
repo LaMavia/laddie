@@ -4,8 +4,8 @@ A fully type-safe compose function.
 
 ## What happens if the types are wrong?
 
-When the next function's argument type 
-is not a subtype of the (potentially awaited) 
+When the next function's argument type
+is not a subtype of the (potentially awaited)
 previous function's return type an argument length error is risen:
 
 ```ts
@@ -46,8 +46,8 @@ const double = (a: number) => a * 2
 
 compose(
   increment, // number => number
-  double,    // number => number
-  String     // any    => string
+  double, // number => number
+  String // any    => string
 )(5) === String(double(increment(5)))
 ```
 
@@ -67,9 +67,14 @@ interface APIResponse {
 }
 
 const fetchTodos = () => fetch(`/todos/all/`)
-const parseResponse = (response: Response): Promise<APIResponse> => response.json()
+const parseResponse = (response: Response): Promise<APIResponse> =>
+  response.json()
 const extractItems = ({ items }: APIResponse) => items
 
 // the type annotation is not necessary
-const getTodos: () => Promise<Todo[]> = compose(fetchTodos, parseResponse, extractItems)
+const getTodos: () => Promise<Todo[]> = compose(
+  fetchTodos,
+  parseResponse,
+  extractItems
+)
 ```

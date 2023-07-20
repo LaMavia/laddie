@@ -1,19 +1,19 @@
-import { defineConfig } from "vite";
+import { defineConfig } from 'vite'
 
 export default defineConfig({
   define: {
-    "import.meta.vitest": "undefined",
+    'import.meta.vitest': 'undefined'
   },
   build: {
     lib: {
-      entry: "./lib/main.ts",
-      name: "laddie",
-      fileName: "laddie",
-    },
+      entry: './lib/main.ts',
+      name: 'laddie',
+      fileName: 'laddie'
+    }
   },
   // @ts-ignore
   test: {
-    includeSource: ["lib/**/*.{ts,js}"],
-    include: [],
-  },
-});
+    includeSource: ['lib/**/*.{ts,js}'],
+    include: []
+  }
+})

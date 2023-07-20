@@ -20,7 +20,10 @@ export type AnyPromise<Fs extends AnyFn[]> = Fs extends []
     : AnyPromise<Tail>
   : never
 
-export type FirstArg<Fs extends AnyFn[]> = Fs extends [infer F extends AnyFn, ...infer _]
+export type FirstArg<Fs extends AnyFn[]> = Fs extends [
+  infer F extends AnyFn,
+  ...infer _
+]
   ? Parameters<F> extends []
     ? void
     : Parameters<F>[0]
