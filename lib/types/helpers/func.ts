@@ -6,12 +6,6 @@ export type LastReturnType<Fs extends AnyFn[]> = Fs extends []
   ? R
   : never
 
-// Fs extends [(...args: any[]) => infer R]
-// ? R
-// : Fs extends [infer _, ...infer Tail extends AnyFn[]]
-// ? LastReturnType<Tail>
-// : never
-
 export type AnyPromise<Fs extends AnyFn[]> = Fs extends []
   ? false
   : Fs extends [infer F, ...infer Tail extends AnyFn[]]
@@ -24,7 +18,11 @@ export type FirstArg<Fs extends AnyFn[]> = Fs extends [
   infer F extends AnyFn,
   ...infer _
 ]
-  ? Parameters<F> extends []
-    ? void
-    : Parameters<F>[0]
-  : void
+  ? Parameters<F>
+  : []
+
+export type ReturnTypeOfMaybePromise<A, B> = A extends Promise<infer _>
+  ? B extends Promise<_>
+    ? Promise<B>
+    : B
+  : B
