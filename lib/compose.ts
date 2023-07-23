@@ -51,10 +51,18 @@ if (import.meta.vitest) {
       ).resolves.toEqual(4)
     })
 
-    it('multiple arguments', () => {
+    it('multiple arguments, 1 function', () => {
       const f = (a: number, b: number, c: number) => a + b + c
       const args = [1, 2, 3] as const
       expect(compose(f)(...args)).toEqual(f(...args))
+    })
+
+    it('multiple arguments, multiple functions', () => {
+      const f = (a: number, b: number) => [a + b, a - b] as [number, number]
+      const g = (x: number, y: number) => x + y
+      const args = [1, 2] as const
+
+      expect(compose(f, g)(...args)).toEqual(g(...f(...args)))
     })
 
     it('array arguments', () => {
@@ -65,11 +73,20 @@ if (import.meta.vitest) {
       expectTypeOf(compose(f)).toMatchTypeOf<(x: any[]) => number>()
     })
 
-    it('tuple arguments', () => {
+    it('tuple arguments, 1 function', () => {
       const f = ([a, b]: [number, number]) => a + b
       const arg: [number, number] = [1, 2]
 
       expect(compose(f)([1, 2])).toEqual(f(arg))
+      expectTypeOf(compose(f)).toMatchTypeOf<typeof f>()
+    })
+
+    it('tuple arguments, multiple functions', () => {
+      const f = ([a, b]: [number, number]): [number, number] => [b, a]
+      const g = ([a, b]: [number, number]) => a - b
+      const arg: [number, number] = [1, 2]
+
+      expect(compose(f, g)(arg)).toEqual(g(f(arg)))
       expectTypeOf(compose(f)).toMatchTypeOf<typeof f>()
     })
 
