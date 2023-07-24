@@ -1,10 +1,18 @@
 {
   "name": "laddie",
   "private": false,
-  "version": "1.2.2",
+  "version": "1.2.3",
   "type": "module",
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "typescript",
+    "compose",
+    "function",
+    "functional",
+    "fp",
+    "pipe"
   ],
   "description": "A fully type-safe compose function.",
   "main": "./dist/laddie.umd.cjs",
